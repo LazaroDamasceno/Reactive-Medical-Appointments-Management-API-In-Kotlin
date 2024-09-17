@@ -1,5 +1,9 @@
 package com.api.v1.user
 
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -10,15 +14,14 @@ import java.util.*
 @Document(collection = "v1_users")
 data class User(
     @Id val id: UUID,
-    @Field var firstName: String,
+    @Field @NotBlank var firstName: String,
     @Field var middleName: String?,
-    @Field var lastName: String,
+    @Field @NotBlank var lastName: String,
     @Field val ssn: String,
-    @Field var birthDate: LocalDate,
-    @Field var email: String,
-    @Field var address: String,
-    @Field var gender: String,
-    @Field var phoneNumber: String,
+    @Field @NotNull var birthDate: LocalDate,
+    @Field @Email var email: String,
+    @Field @NotBlank @Size(min=1) var gender: String,
+    @Field @NotBlank @Size(min=10, max=10) var phoneNumber: String,
     @Field val createdAt: Instant,
     @Field var updatedAt: Instant?
 ) {
@@ -30,7 +33,6 @@ data class User(
         ssn: String,
         birthDate: LocalDate,
         email: String,
-        address: String,
         gender: String,
         phoneNumber: String,
     ): this(
@@ -41,7 +43,6 @@ data class User(
         ssn,
         birthDate,
         email,
-        address,
         gender,
         phoneNumber,
         Instant.now(),
@@ -51,6 +52,18 @@ data class User(
     fun fullName(): String {
         if (middleName.isNullOrEmpty()) return "$firstName $lastName"
         return "$firstName $middleName $lastName"
+    }
+
+    fun update(requestDto: UserUpdatingRequestDto): User {
+        firstName = requestDto.firstName
+        middleName = requestDto.middleName
+        lastName = requestDto.lastName
+        birthDate = requestDto.birthDate
+        email = requestDto.email
+        gender = requestDto.gender
+        phoneNumber = requestDto.phoneNumber
+        updatedAt = Instant.now()
+        return this
     }
 
 }

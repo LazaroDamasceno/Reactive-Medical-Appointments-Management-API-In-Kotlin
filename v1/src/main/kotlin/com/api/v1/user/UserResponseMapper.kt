@@ -5,13 +5,10 @@ class UserResponseMapper {
     companion object {
         fun map(user: User): UserResponseDto {
             return UserResponseDto(
-                user.firstName,
-                user.middleName,
-                user.lastName,
+                user.fullName(),
                 user.ssn,
                 user.birthDate,
                 user.email,
-                user.address,
                 user.gender,
                 user.phoneNumber,
                 user.createdAt,
