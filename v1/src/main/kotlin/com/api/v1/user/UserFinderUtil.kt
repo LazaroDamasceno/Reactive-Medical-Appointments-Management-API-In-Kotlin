@@ -1,5 +1,6 @@
 package com.api.v1.user
 
+import com.api.v1.customer.CustomerNotFoundException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class UserFinder {
+class UserFinderUtil {
 
     @Autowired
     private lateinit var userRepository: UserRepository
