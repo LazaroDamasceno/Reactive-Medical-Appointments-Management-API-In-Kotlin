@@ -3,7 +3,7 @@ package com.api.v1.user
 class UserResponseMapper {
 
     companion object {
-        fun mapToResponseDto(user: User): UserResponseDto {
+        fun map(user: User): UserResponseDto {
             return UserResponseDto(
                 user.firstName,
                 user.middleName,
