@@ -14,5 +14,5 @@ data class UserResponseDto(
     val gender: String,
     val phoneNumber: String,
     val createdAt: Instant,
-    var updatedAt: Instant?
+    val updatedAt: Instant?
 )
