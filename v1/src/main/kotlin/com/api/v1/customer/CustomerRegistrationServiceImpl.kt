@@ -16,16 +16,16 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    override suspend fun register(user: @Valid User, address: String): CustomerResponseDto {
+    override suspend fun register(requestDto: @Valid CustomerRegistrationRequestDto): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val checkIfGivenSsnIsDuplicated = customerRepository
                 .findAll()
-                .filter { e -> e.user.ssn == user.ssn }
+                .filter { e -> e.user.ssn == requestDto.user.ssn }
                 .count() != 0
             if (checkIfGivenSsnIsDuplicated) {
-                throw DuplicatedSsnException(user.ssn)
+                throw DuplicatedSsnException(requestDto.user.ssn)
             }
-            val customer = Customer(user, address)
+            val customer = Customer(requestDto.user, requestDto.address)
             val savedCustomer = customerRepository.save(customer)
             CustomerResponseMapper.map(savedCustomer)
         }

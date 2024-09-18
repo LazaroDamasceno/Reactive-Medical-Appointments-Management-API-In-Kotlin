@@ -4,7 +4,6 @@ import com.api.v1.user.User
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,10 +17,10 @@ class CustomerRegistrationController {
     @Autowired
     private lateinit var service: CustomerRegistrationService
 
-    @PostMapping("{address}")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    suspend fun register(@RequestBody user: @Valid User, @PathVariable address: String): CustomerResponseDto {
-        return service.register(user, address)
+    suspend fun register(@RequestBody requestDto: @Valid CustomerRegistrationRequestDto): CustomerResponseDto {
+        return service.register(requestDto)
     }
 
 }
