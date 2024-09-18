@@ -1,6 +1,8 @@
-package com.api.v1.customer
+package com.api.v1.customer.controllers
 
-import com.api.v1.user.User
+import com.api.v1.customer.dtos.CustomerRegistrationRequestDto
+import com.api.v1.customer.dtos.CustomerResponseDto
+import com.api.v1.customer.service.CustomerRegistrationService
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

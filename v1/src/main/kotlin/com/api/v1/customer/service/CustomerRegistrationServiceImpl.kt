@@ -1,7 +1,11 @@
-package com.api.v1.customer
+package com.api.v1.customer.service
 
+import com.api.v1.customer.domain.Customer
+import com.api.v1.customer.domain.CustomerRepository
+import com.api.v1.customer.dtos.CustomerRegistrationRequestDto
+import com.api.v1.customer.dtos.CustomerResponseDto
+import com.api.v1.customer.utils.CustomerResponseMapper
 import com.api.v1.user.DuplicatedSsnException
-import com.api.v1.user.User
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count

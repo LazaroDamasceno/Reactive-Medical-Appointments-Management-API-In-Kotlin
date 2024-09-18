@@ -1,4 +1,4 @@
-package com.api.v1.customer
+package com.api.v1.customer.domain
 
 import com.api.v1.user.User
 import jakarta.validation.Valid
@@ -12,8 +12,8 @@ import java.util.UUID
 @Document(collection = "v2_customers")
 data class Customer(
     @Id val id: UUID,
-    @Field @Valid @NotNull val user: User,
-    @Field @NotBlank val address: String
+    @Field @Valid @NotNull var user: User,
+    @Field @NotBlank var address: String
 ) {
 
     constructor(
@@ -24,5 +24,11 @@ data class Customer(
         user,
         address
     )
+
+    fun update(user: User, address: String): Customer {
+        this.user = user
+        this.address = address
+        return this
+    }
 
 }
