@@ -1,4 +1,4 @@
-package com.api.v1.user
+package com.api.v1.users.domain
 
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import java.util.UUID

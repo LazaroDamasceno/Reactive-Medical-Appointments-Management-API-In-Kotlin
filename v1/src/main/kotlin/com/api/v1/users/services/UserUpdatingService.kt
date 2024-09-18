@@ -1,4 +1,6 @@
-package com.api.v1.user
+package com.api.v1.users.services
+
+import com.api.v1.users.dtos.UserUpdatingRequestDto
 
 interface UserUpdatingService {
 

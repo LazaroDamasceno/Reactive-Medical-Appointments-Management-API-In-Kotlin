@@ -1,6 +1,8 @@
-package com.api.v1.user
+package com.api.v1.users.utils
 
 import com.api.v1.customer.exceptions.CustomerNotFoundException
+import com.api.v1.users.domain.User
+import com.api.v1.users.domain.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull

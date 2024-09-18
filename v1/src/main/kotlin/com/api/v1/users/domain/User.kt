@@ -1,5 +1,6 @@
-package com.api.v1.user
+package com.api.v1.users.domain
 
+import com.api.v1.users.dtos.UserUpdatingRequestDto
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull

@@ -1,7 +1,7 @@
 package com.api.v1
 
 import com.api.v1.customer.dtos.CustomerRegistrationRequestDto
-import com.api.v1.user.User
+import com.api.v1.users.domain.User
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test

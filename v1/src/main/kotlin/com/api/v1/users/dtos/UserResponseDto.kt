@@ -1,4 +1,4 @@
-package com.api.v1.user
+package com.api.v1.users.dtos
 
 import java.time.Instant
 import java.time.LocalDate

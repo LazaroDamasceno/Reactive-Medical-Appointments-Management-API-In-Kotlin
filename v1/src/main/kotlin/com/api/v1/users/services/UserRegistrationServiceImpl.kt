@@ -1,5 +1,8 @@
-package com.api.v1.user
+package com.api.v1.users.services
 
+import com.api.v1.users.domain.User
+import com.api.v1.users.domain.UserRepository
+import com.api.v1.users.exceptions.DuplicatedSsnException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
