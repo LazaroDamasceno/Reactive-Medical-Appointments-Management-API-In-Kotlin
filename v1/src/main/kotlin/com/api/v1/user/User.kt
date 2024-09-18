@@ -54,16 +54,4 @@ data class User(
         return "$firstName $middleName $lastName"
     }
 
-    fun update(requestDto: UserUpdatingRequestDto): User {
-        firstName = requestDto.firstName
-        middleName = requestDto.middleName
-        lastName = requestDto.lastName
-        birthDate = requestDto.birthDate
-        email = requestDto.email
-        gender = requestDto.gender
-        phoneNumber = requestDto.phoneNumber
-        updatedAt = Instant.now()
-        return this
-    }
-
 }
