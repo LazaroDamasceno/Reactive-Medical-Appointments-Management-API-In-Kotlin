@@ -21,13 +21,13 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
 
     override suspend fun register(user: User, address: String): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
-            val isGivenSsnAlreadyRegistered = customerRepository
+            val isGivenSsnAlreadyRegistered = userRepository
                 .findAll()
-                .filter { e -> e.user.ssn == user.ssn }
+                .filter { e -> e.ssn == user.ssn }
                 .count() != 0
             if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(user.ssn)
-            val savedCustomer = handleDuplicatedSsnError(user.ssn)
-            CustomerResponseMapper.map(user, address)
+            val savedCustomer = handleRegistration(user, address)
+            CustomerResponseMapper.map(savedCustomer.user, address)
         }
     }
 

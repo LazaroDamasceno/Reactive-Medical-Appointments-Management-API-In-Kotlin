@@ -33,10 +33,9 @@ private class CustomerRegistrationTest {
 	@Test
 	@Order(1)
 	fun testSuccessRegistration() {
-
 		webTestClient
 			.post()
-			.uri("api/v2/customers/$address")
+			.uri("api/v1/customers/$address")
 			.bodyValue(user)
 			.exchange()
 			.expectStatus()
@@ -47,7 +46,7 @@ private class CustomerRegistrationTest {
 	fun testUnSuccessRegistration() {
 		webTestClient
 			.post()
-			.uri("api/v2/customers/$address")
+			.uri("api/v1/customers/$address")
 			.bodyValue(user)
 			.exchange()
 			.expectStatus()
