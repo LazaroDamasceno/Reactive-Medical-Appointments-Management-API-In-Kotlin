@@ -21,18 +21,7 @@ private class CustomerRegistrationTest {
 	@Test
 	@Order(1)
 	fun testSuccessRegistration() {
-		val user = User(
-			"Leo",
-			"",
-			"Santos",
-			"123456789",
-			LocalDate.parse("2000-12-12"),
-			"leosantos@mail.com",
-			"male",
-			"1234567890"
-		)
-		val address = "St. Dennis"
-		val request = CustomerRegistrationRequestDto(user, address)
+
 		webTestClient
 			.post()
 			.uri("api/v2/customers")
@@ -44,18 +33,6 @@ private class CustomerRegistrationTest {
 
 	@Test
 	fun testUnSuccessRegistration() {
-		val user = User(
-			"Leo",
-			"",
-			"Santos",
-			"123456789",
-			LocalDate.parse("2000-12-12"),
-			"leosantos@mail.com",
-			"male",
-			"1234567890"
-		)
-		val address = "St. Dennis"
-		val request = CustomerRegistrationRequestDto(user, address)
 		webTestClient
 			.post()
 			.uri("api/v2/customers")
