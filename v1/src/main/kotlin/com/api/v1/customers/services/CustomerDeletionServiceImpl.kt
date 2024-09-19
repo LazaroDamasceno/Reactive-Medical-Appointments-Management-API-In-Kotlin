@@ -1,8 +1,11 @@
 package com.api.v1.customers.services
 
 import com.api.v1.customers.domain.CustomerRepository
+import com.api.v1.customers.exceptions.CustomerWasNotFoundException
 import com.api.v1.customers.exceptions.EmptyCustomerException
 import com.api.v1.customers.utils.CustomerFinderUtil
+import com.api.v1.users.domain.UserRepository
+import com.api.v1.users.utils.UserFinderUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.withContext
@@ -16,14 +19,23 @@ private class CustomerDeletionServiceImpl: CustomerDeletionService {
     lateinit var customerRepository: CustomerRepository
 
     @Autowired
+    lateinit var userRepository: UserRepository
+
+    @Autowired
     lateinit var customerFinderUtil: CustomerFinderUtil
+
+    @Autowired
+    lateinit var userFinderUtil: UserFinderUtil
 
     override suspend fun deleteAll() {
         return withContext(Dispatchers.IO) {
-            if (customerRepository.findAll().count() == 0) {
+            val isUserEmpty = userRepository.findAll().count() == 0
+            val isCustomerEmpty = customerRepository.findAll().count() == 0
+            if (isUserEmpty || isCustomerEmpty) {
                 throw EmptyCustomerException()
             }
             customerRepository.deleteAll()
+            userRepository.deleteAll()
         }
     }
 
@@ -31,6 +43,8 @@ private class CustomerDeletionServiceImpl: CustomerDeletionService {
         return withContext(Dispatchers.IO) {
             val customer = customerFinderUtil.find(ssn)
             customerRepository.delete(customer)
+            val user = userFinderUtil.find(ssn)
+            userRepository.delete(user!!)
         }
     }
 

@@ -72,7 +72,7 @@ class CustomerController {
     }
 
     @DeleteMapping("{ssn}")
-    suspend fun deleteBySsn(ssn: String): ResponseEntity<Void> {
+    suspend fun deleteBySsn(@PathVariable ssn: String): ResponseEntity<Void> {
         customerDeletionService.deleteBySsn(ssn)
         return ResponseEntity.status(204).build()
     }
