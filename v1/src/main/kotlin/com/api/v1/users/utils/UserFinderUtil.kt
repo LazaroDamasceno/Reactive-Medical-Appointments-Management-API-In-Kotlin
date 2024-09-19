@@ -1,6 +1,5 @@
 package com.api.v1.users.utils
 
-import com.api.v1.customer.exceptions.CustomerNotFoundException
 import com.api.v1.users.domain.User
 import com.api.v1.users.domain.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,16 +15,12 @@ class UserFinderUtil {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    suspend fun find(ssn: String): User {
+    suspend fun find(ssn: String): User? {
         return withContext(Dispatchers.IO) {
-            val existingUser = userRepository
+            userRepository
                 .findAll()
                 .filter { e -> e.ssn == ssn }
                 .singleOrNull()
-            if (existingUser == null) {
-                throw CustomerNotFoundException(ssn)
-            }
-            existingUser
         }
     }
 

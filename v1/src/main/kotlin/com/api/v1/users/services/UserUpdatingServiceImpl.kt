@@ -20,7 +20,7 @@ private class UserUpdatingServiceImpl: UserUpdatingService {
 
     override suspend fun update(ssn: String, requestDto: @Valid UserUpdatingRequestDto) {
         return withContext(Dispatchers.IO) {
-            userFinderUtil.find(ssn).update(requestDto)
+            userFinderUtil.find(ssn)!!.update(requestDto)
         }
     }
 

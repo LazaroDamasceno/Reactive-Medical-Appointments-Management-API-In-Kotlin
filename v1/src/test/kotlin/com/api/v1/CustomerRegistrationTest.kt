@@ -1,6 +1,5 @@
 package com.api.v1
 
-import com.api.v1.customer.dtos.CustomerRegistrationRequestDto
 import com.api.v1.users.domain.User
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
@@ -18,14 +17,27 @@ private class CustomerRegistrationTest {
 	@Autowired
 	lateinit var webTestClient: WebTestClient
 
+	val user = User(
+		"Leo",
+		"",
+		"Santos",
+		"123456789",
+		LocalDate.parse("2000-12-12"),
+		"leosantos@mail.com",
+		"male",
+		"1234567890"
+	)
+
+	val address = "St. Dennis"
+
 	@Test
 	@Order(1)
 	fun testSuccessRegistration() {
 
 		webTestClient
 			.post()
-			.uri("api/v2/customers")
-			.bodyValue(request)
+			.uri("api/v2/customers/$address")
+			.bodyValue(user)
 			.exchange()
 			.expectStatus()
 			.is2xxSuccessful()
@@ -35,8 +47,8 @@ private class CustomerRegistrationTest {
 	fun testUnSuccessRegistration() {
 		webTestClient
 			.post()
-			.uri("api/v2/customers")
-			.bodyValue(request)
+			.uri("api/v2/customers/$address")
+			.bodyValue(user)
 			.exchange()
 			.expectStatus()
 			.is5xxServerError()
