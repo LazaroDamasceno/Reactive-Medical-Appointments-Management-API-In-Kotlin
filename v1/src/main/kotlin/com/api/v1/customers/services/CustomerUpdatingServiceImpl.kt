@@ -36,7 +36,7 @@ private class CustomerUpdatingServiceImpl: CustomerUpdatingService {
             val savedUser = userRepository.save(updatedUser)
             val updatedCustomer = existingCustomer.update(savedUser, requestDto.address)
             val savedCustomer = customerRepository.save(updatedCustomer)
-            CustomerResponseMapper.map(savedCustomer.user, requestDto.address)
+            CustomerResponseMapper.map(savedCustomer)
         }
     }
 

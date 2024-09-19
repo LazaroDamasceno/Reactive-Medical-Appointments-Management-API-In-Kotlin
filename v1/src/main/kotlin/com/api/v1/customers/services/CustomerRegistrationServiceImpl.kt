@@ -32,7 +32,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 .count() != 0
             if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(requestDto.user.ssn)
             val savedCustomer = handleRegistration(requestDto)
-            CustomerResponseMapper.map(savedCustomer.user, requestDto.address)
+            CustomerResponseMapper.map(savedCustomer)
         }
     }
 
