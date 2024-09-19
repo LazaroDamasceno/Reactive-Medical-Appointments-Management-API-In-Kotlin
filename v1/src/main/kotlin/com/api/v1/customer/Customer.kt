@@ -10,8 +10,8 @@ import java.util.*
 @Document(collection = "v1_customers")
 data class Customer(
     @Id val id: UUID,
-    @Field val user: User,
-    @Field val address: String,
+    @Field var user: User,
+    @Field var address: String,
     @Field val createdAt: Instant,
     @Field var updatedAt: Instant?
 ) {
@@ -26,5 +26,12 @@ data class Customer(
         Instant.now(),
         null
     )
+
+    fun update(user: User, address: String): Customer {
+        this.user = user
+        this.address = address
+        updatedAt = Instant.now()
+        return this
+    }
 
 }
