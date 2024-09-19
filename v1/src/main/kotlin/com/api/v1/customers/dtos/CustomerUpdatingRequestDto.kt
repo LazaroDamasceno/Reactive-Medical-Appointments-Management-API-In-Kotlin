@@ -1,8 +1,10 @@
 package com.api.v1.customers.dtos
 
 import com.api.v1.users.dtos.UserUpdatingRequestDto
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 
 data class CustomerUpdatingRequestDto(
-    val address: String,
-    val userUpdateRequestDto: UserUpdatingRequestDto
+    val address: @NotBlank String,
+    val userUpdateRequestDto: @Valid UserUpdatingRequestDto
 )

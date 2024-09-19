@@ -30,20 +30,12 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 .findAll()
                 .filter { e -> e.ssn == requestDto.user.ssn }
                 .count() != 0
-            if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(requestDto.user.ssn)
-            val savedCustomer = handleRegistration(requestDto)
+            if (isGivenSsnAlreadyRegistered)  throw DuplicatedSsnException(requestDto.user.ssn)
+            val savedUser = userRepository.save(requestDto.user)
+            val customer = Customer(savedUser, requestDto.address)
+            val savedCustomer = customerRepository.save(customer)
             CustomerResponseMapper.map(savedCustomer)
         }
-    }
-
-    suspend fun handleDuplicatedSsnError(ssn: String) {
-        throw DuplicatedSsnException(ssn)
-    }
-
-    suspend fun handleRegistration(requestDto: CustomerRegistrationRequestDto): Customer {
-        val savedUser = userRepository.save(requestDto.user)
-        val customer = Customer(savedUser, requestDto.address)
-        return customerRepository.save(customer)
     }
 
 }
