@@ -4,6 +4,6 @@ import com.api.v1.users.domain.User
 
 interface CustomerRegistrationService {
 
-    suspend fun register(user: User, address: String)
+    suspend fun register(user: User, address: String): CustomerResponseDto
 
 }

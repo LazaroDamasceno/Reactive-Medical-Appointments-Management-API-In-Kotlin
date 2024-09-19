@@ -26,7 +26,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 .filter { e -> e.user.ssn == user.ssn }
                 .count() != 0
             if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(user.ssn)
-            val savedCustomer = handleDuplicatedSsnError(user, address)
+            val savedCustomer = handleDuplicatedSsnError(user.ssn)
             CustomerResponseMapper.map(user, address)
         }
     }
