@@ -3,12 +3,14 @@ package com.api.v1.customers.controllers
 import com.api.v1.customers.dtos.CustomerRegistrationRequestDto
 import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
+import com.api.v1.customers.services.CustomerDeletionService
 import com.api.v1.customers.services.CustomerRegistrationService
 import com.api.v1.customers.services.CustomerRetrievalService
 import com.api.v1.customers.services.CustomerUpdatingService
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -28,14 +30,18 @@ class CustomerController {
     @Autowired
     private lateinit var customerUpdatingService: CustomerUpdatingService
 
-    @Autowired lateinit var customerRetrievalService: CustomerRetrievalService
+    @Autowired
+    private lateinit var customerRetrievalService: CustomerRetrievalService
+
+    @Autowired
+    private lateinit var customerDeletionService: CustomerDeletionService
 
     @PostMapping
     suspend fun register(
         @RequestBody requestDto: @Valid CustomerRegistrationRequestDto
     ): ResponseEntity<CustomerResponseDto> {
         val savedCustomer = customerRegistrationService.register(requestDto)
-        return ResponseEntity.status(204).body(savedCustomer)
+        return ResponseEntity.status(201).body(savedCustomer)
     }
 
     @PutMapping("{ssn}")
@@ -57,6 +63,18 @@ class CustomerController {
     suspend fun findBySsn(@PathVariable ssn: String): ResponseEntity<CustomerResponseDto> {
         val customer = customerRetrievalService.findBySnn(ssn)
         return ResponseEntity.ok(customer)
+    }
+
+    @DeleteMapping
+    suspend fun deleteAll(): ResponseEntity<Void> {
+        customerDeletionService.deleteAll()
+        return ResponseEntity.status(204).build()
+    }
+
+    @DeleteMapping("{ssn}")
+    suspend fun deleteBySsn(ssn: String): ResponseEntity<Void> {
+        customerDeletionService.deleteBySsn(ssn)
+        return ResponseEntity.status(204).build()
     }
 
 }
