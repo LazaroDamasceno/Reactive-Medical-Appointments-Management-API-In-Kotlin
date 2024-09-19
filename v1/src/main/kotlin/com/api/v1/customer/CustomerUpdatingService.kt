@@ -4,6 +4,6 @@ import com.api.v1.users.dtos.UserUpdatingRequestDto
 
 interface CustomerUpdatingService {
 
-    suspend fun update(ssn: String, request: CustomerUpdatingRequestDto): CustomerResponseDto
+    suspend fun update(ssn: String, requestDto: CustomerUpdatingRequestDto): CustomerResponseDto
 
 }
