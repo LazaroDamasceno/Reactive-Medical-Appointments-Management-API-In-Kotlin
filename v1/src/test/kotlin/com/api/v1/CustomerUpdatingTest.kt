@@ -1,6 +1,6 @@
 package com.api.v1
 
-import com.api.v1.customer.CustomerUpdatingRequestDto
+import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
 import com.api.v1.users.dtos.UserUpdatingRequestDto
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order

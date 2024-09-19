@@ -1,6 +1,10 @@
-package com.api.v1.customer
+package com.api.v1.customers.controllers
 
-import com.api.v1.users.domain.User
+import com.api.v1.customers.dtos.CustomerRegistrationRequestDto
+import com.api.v1.customers.dtos.CustomerResponseDto
+import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
+import com.api.v1.customers.services.CustomerRegistrationService
+import com.api.v1.customers.services.CustomerUpdatingService
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

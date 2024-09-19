@@ -1,5 +1,6 @@
-package com.api.v1.customer
+package com.api.v1.customers.utils
 
+import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.users.domain.User
 import com.api.v1.users.utils.UserResponseMapper
 

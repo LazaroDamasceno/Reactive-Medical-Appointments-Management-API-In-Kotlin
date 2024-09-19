@@ -1,4 +1,4 @@
-package com.api.v1.customer
+package com.api.v1.customers.dtos
 
 import com.api.v1.users.dtos.UserResponseDto
 

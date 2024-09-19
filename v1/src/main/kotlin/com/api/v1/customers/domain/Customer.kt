@@ -1,4 +1,4 @@
-package com.api.v1.customer
+package com.api.v1.customers.domain
 
 import com.api.v1.users.domain.User
 import org.springframework.data.annotation.Id

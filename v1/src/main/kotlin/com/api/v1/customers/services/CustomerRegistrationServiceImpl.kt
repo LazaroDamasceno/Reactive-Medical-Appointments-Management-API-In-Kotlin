@@ -1,6 +1,10 @@
-package com.api.v1.customer
+package com.api.v1.customers.services
 
-import com.api.v1.users.domain.User
+import com.api.v1.customers.domain.Customer
+import com.api.v1.customers.domain.CustomerRepository
+import com.api.v1.customers.dtos.CustomerRegistrationRequestDto
+import com.api.v1.customers.dtos.CustomerResponseDto
+import com.api.v1.customers.utils.CustomerResponseMapper
 import com.api.v1.users.domain.UserRepository
 import com.api.v1.users.exceptions.DuplicatedSsnException
 import jakarta.validation.Valid
