@@ -1,6 +1,7 @@
 package com.api.v1.customer
 
 import com.api.v1.users.domain.User
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,12 +17,11 @@ class CustomerController {
     @Autowired
     private lateinit var customerRegistrationService: CustomerRegistrationService
 
-    @PostMapping("{address}")
+    @PostMapping
     suspend fun register(
-        @RequestBody user: User,
-        @PathVariable address: String
+        @RequestBody requestDto: @Valid CustomerRegistrationRequestDto
     ): ResponseEntity<CustomerResponseDto> {
-        val savedCustomer = customerRegistrationService.register(user, address)
+        val savedCustomer = customerRegistrationService.register(requestDto)
         return ResponseEntity.status(204).body(savedCustomer)
     }
 

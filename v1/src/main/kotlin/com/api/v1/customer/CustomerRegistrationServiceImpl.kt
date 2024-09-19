@@ -3,6 +3,7 @@ package com.api.v1.customer
 import com.api.v1.users.domain.User
 import com.api.v1.users.domain.UserRepository
 import com.api.v1.users.exceptions.DuplicatedSsnException
+import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
@@ -19,15 +20,15 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    override suspend fun register(user: User, address: String): CustomerResponseDto {
+    override suspend fun register(requestDto: @Valid CustomerRegistrationRequestDto): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val isGivenSsnAlreadyRegistered = userRepository
                 .findAll()
-                .filter { e -> e.ssn == user.ssn }
+                .filter { e -> e.ssn == requestDto.user.ssn }
                 .count() != 0
-            if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(user.ssn)
-            val savedCustomer = handleRegistration(user, address)
-            CustomerResponseMapper.map(savedCustomer.user, address)
+            if (isGivenSsnAlreadyRegistered) handleDuplicatedSsnError(requestDto.user.ssn)
+            val savedCustomer = handleRegistration(requestDto)
+            CustomerResponseMapper.map(savedCustomer.user, requestDto.address)
         }
     }
 
@@ -35,9 +36,9 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
         throw DuplicatedSsnException(ssn)
     }
 
-    suspend fun handleRegistration(user: User, address: String): Customer {
-        val savedUser = userRepository.save(user)
-        val customer = Customer(savedUser, address)
+    suspend fun handleRegistration(requestDto: CustomerRegistrationRequestDto): Customer {
+        val savedUser = userRepository.save(requestDto.user)
+        val customer = Customer(savedUser, requestDto.address)
         return customerRepository.save(customer)
     }
 
