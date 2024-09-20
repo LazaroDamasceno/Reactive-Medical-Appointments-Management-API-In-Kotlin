@@ -6,6 +6,7 @@ import com.api.v1.doctors.utils.DoctorFinderUtil
 import com.api.v1.doctors.utils.DoctorResponseMapper
 import com.api.v1.users.domain.UserRepository
 import com.api.v1.users.dtos.UserUpdatingRequestDto
+import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.stereotype.Service
@@ -19,7 +20,7 @@ private class DoctorUpdatingServiceImpl: DoctorUpdatingService {
 
     lateinit var userRepository: UserRepository
 
-    override suspend fun update(licenseNumber: String, requestDto: UserUpdatingRequestDto): DoctorResponseDto {
+    override suspend fun update(licenseNumber: String, requestDto: @Valid UserUpdatingRequestDto): DoctorResponseDto {
         return withContext(Dispatchers.IO) {
             val existingDoctor = doctorFinderUtil.find(licenseNumber)
             val user = existingDoctor.user
