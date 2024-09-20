@@ -1,0 +1,34 @@
+package com.api.v1.doctors.services
+
+import com.api.v1.doctors.domain.DoctorRepository
+import com.api.v1.doctors.dtos.DoctorResponseDto
+import com.api.v1.doctors.utils.DoctorFinderUtil
+import com.api.v1.doctors.utils.DoctorResponseMapper
+import com.api.v1.users.domain.UserRepository
+import com.api.v1.users.dtos.UserUpdatingRequestDto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.springframework.stereotype.Service
+
+@Service
+private class DoctorUpdatingServiceImpl: DoctorUpdatingService {
+
+    lateinit var doctorFinderUtil: DoctorFinderUtil
+
+    lateinit var doctorRepository: DoctorRepository
+
+    lateinit var userRepository: UserRepository
+
+    override suspend fun update(licenseNumber: String, requestDto: UserUpdatingRequestDto): DoctorResponseDto {
+        return withContext(Dispatchers.IO) {
+            val existingDoctor = doctorFinderUtil.find(licenseNumber)
+            val user = existingDoctor.user
+            val updatedUser = user.update(requestDto)
+            val savedUser = userRepository.save(updatedUser)
+            val updatedDoctor = existingDoctor.update(savedUser)
+            val savedDoctor = doctorRepository.save(updatedDoctor)
+            DoctorResponseMapper.map(savedDoctor)
+        }
+    }
+
+}
