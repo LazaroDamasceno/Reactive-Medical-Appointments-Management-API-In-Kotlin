@@ -1,4 +1,4 @@
-package com.api.v1.doctor
+package com.api.v1.doctors.dtos
 
 import com.api.v1.users.dtos.UserResponseDto
 import java.time.Instant

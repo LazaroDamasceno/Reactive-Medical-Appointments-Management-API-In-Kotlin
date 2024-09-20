@@ -1,6 +1,7 @@
-package com.api.v1.doctor
+package com.api.v1.doctors.utils
 
-import com.api.v1.customers.domain.Customer
+import com.api.v1.doctors.dtos.DoctorResponseDto
+import com.api.v1.doctors.domain.Doctor
 import com.api.v1.users.utils.UserResponseMapper
 
 class DoctorResponseMapper {

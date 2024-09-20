@@ -1,5 +1,8 @@
-package com.api.v1.doctor
+package com.api.v1.doctors.utils
 
+import com.api.v1.doctors.exceptions.DoctorNotFoundException
+import com.api.v1.doctors.domain.Doctor
+import com.api.v1.doctors.domain.DoctorRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull
