@@ -1,6 +1,6 @@
 package com.api.v1.doctors.controllers
 
-import com.api.v1.doctors.domain.Doctor
+import com.api.v1.doctors.dtos.DoctorRegistrationRequestDto
 import com.api.v1.doctors.dtos.DoctorResponseDto
 import com.api.v1.doctors.services.DoctorRegistrationService
 import com.api.v1.doctors.services.DoctorUpdatingService
@@ -22,8 +22,8 @@ class DoctorController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    suspend fun register(@RequestBody doctor: @Valid Doctor): DoctorResponseDto {
-        return doctorRegistrationService.register(doctor)
+    suspend fun register(@RequestBody responseDto: @Valid DoctorRegistrationRequestDto): DoctorResponseDto {
+        return doctorRegistrationService.register(responseDto)
     }
 
     @PutMapping("{licenseNumber}")

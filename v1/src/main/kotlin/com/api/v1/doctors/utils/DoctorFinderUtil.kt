@@ -7,11 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.withContext
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class DoctorFinderUtil {
 
+    @Autowired
     private lateinit var doctorRepository: DoctorRepository
 
     suspend fun find(licenseNumber: String): Doctor {

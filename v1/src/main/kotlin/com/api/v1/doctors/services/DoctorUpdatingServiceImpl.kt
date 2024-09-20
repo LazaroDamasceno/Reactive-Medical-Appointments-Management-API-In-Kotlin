@@ -9,15 +9,19 @@ import com.api.v1.users.dtos.UserUpdatingRequestDto
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 private class DoctorUpdatingServiceImpl: DoctorUpdatingService {
 
+    @Autowired
     lateinit var doctorFinderUtil: DoctorFinderUtil
 
+    @Autowired
     lateinit var doctorRepository: DoctorRepository
 
+    @Autowired
     lateinit var userRepository: UserRepository
 
     override suspend fun update(licenseNumber: String, requestDto: @Valid UserUpdatingRequestDto): DoctorResponseDto {
