@@ -1,7 +1,7 @@
-package com.api.v1
+package com.api.v1.customer
 
-import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.customers.dtos.CustomerRegistrationRequestDto
+import com.api.v1.users.User
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
@@ -13,29 +13,30 @@ import java.time.LocalDate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-private class CustomerUpdatingTest {
+private class CustomerRegistrationTest {
 
 	@Autowired
 	lateinit var webTestClient: WebTestClient
 
-	final val updatedUser = UserUpdatingRequestDto(
-		"Leonardo",
-		"Silva",
-		"Santos Jr.",
-		LocalDate.parse("1997-01-12"),
-		"jr@leosantos.com",
-		"cis male",
-		"0987654321"
+	final val user = User(
+		"Leo",
+		"",
+		"Santos",
+		"123456789",
+		LocalDate.parse("2000-12-12"),
+		"leosantos@mail.com",
+		"male",
+		"1234567890"
 	)
-	final val address = "St. Dennis, Paris, France"
-	val request = CustomerUpdatingRequestDto(address, updatedUser)
+	final val address = "St. Dennis"
+	val request = CustomerRegistrationRequestDto(user, address)
 
 	@Test
 	@Order(1)
-	fun testSuccessUpdating() {
+	fun testSuccessRegistration() {
 		webTestClient
-			.put()
-			.uri("api/v1/customers/${123456789}")
+			.post()
+			.uri("api/v1/customers")
 			.bodyValue(request)
 			.exchange()
 			.expectStatus()
@@ -43,10 +44,10 @@ private class CustomerUpdatingTest {
 	}
 
 	@Test
-	fun testUnSuccessUpdating() {
+	fun testUnSuccessRegistration() {
 		webTestClient
-			.put()
-			.uri("api/v1/customers/${123456788}")
+			.post()
+			.uri("api/v1/customers")
 			.bodyValue(request)
 			.exchange()
 			.expectStatus()

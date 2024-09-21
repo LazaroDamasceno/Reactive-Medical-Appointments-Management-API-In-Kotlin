@@ -1,6 +1,6 @@
 package com.api.v1.customers.dtos
 
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.users.UserUpdatingRequestDto
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 

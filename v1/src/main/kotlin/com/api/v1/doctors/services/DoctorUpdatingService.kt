@@ -1,7 +1,7 @@
 package com.api.v1.doctors.services
 
 import com.api.v1.doctors.dtos.DoctorResponseDto
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.users.UserUpdatingRequestDto
 
 interface DoctorUpdatingService {
 

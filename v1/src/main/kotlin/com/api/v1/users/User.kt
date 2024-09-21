@@ -1,6 +1,5 @@
-package com.api.v1.users.domain
+package com.api.v1.users
 
-import com.api.v1.users.dtos.UserUpdatingRequestDto
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
@@ -15,7 +14,7 @@ import java.util.*
 
 @Document(collection = "v1_users")
 data class User(
-    @Id val id: UUID,
+    @Id var id: UUID,
     @Field var firstName: String,
     @Field var middleName: String?,
     @Field var lastName: String,
@@ -60,7 +59,14 @@ data class User(
         return "$firstName $middleName $lastName"
     }
 
+    fun finish(): User {
+        updatedAt = Instant.now()
+        updatingZonedId = ZoneId.systemDefault()
+        return this
+    }
+
     fun update(requestDto: UserUpdatingRequestDto): User {
+        id = UUID.randomUUID()
         firstName = requestDto.firstName
         middleName = requestDto.middleName
         lastName = requestDto.lastName
@@ -68,8 +74,8 @@ data class User(
         email = requestDto.email
         gender = requestDto.gender
         phoneNumber = requestDto.phoneNumber
-        updatedAt = Instant.now()
-        updatingZonedId = ZoneId.systemDefault()
+        updatedAt = null
+        updatingZonedId = null
         return this
     }
 

@@ -1,7 +1,5 @@
-package com.api.v1.users.utils
+package com.api.v1.users
 
-import com.api.v1.users.domain.User
-import com.api.v1.users.domain.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull
@@ -19,7 +17,10 @@ class UserFinderUtil {
         return withContext(Dispatchers.IO) {
             userRepository
                 .findAll()
-                .filter { e -> e.ssn == ssn }
+                .filter { e -> e.ssn == ssn
+                        && e.updatedAt == null
+                        && e.updatingZonedId == null
+                }
                 .singleOrNull()
         }
     }

@@ -6,7 +6,7 @@ import com.api.v1.doctors.services.DoctorDeletionService
 import com.api.v1.doctors.services.DoctorRegistrationService
 import com.api.v1.doctors.services.DoctorRetrievalService
 import com.api.v1.doctors.services.DoctorUpdatingService
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.users.UserUpdatingRequestDto
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus

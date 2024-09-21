@@ -1,7 +1,4 @@
-package com.api.v1.users.utils
-
-import com.api.v1.users.domain.User
-import com.api.v1.users.dtos.UserResponseDto
+package com.api.v1.users
 
 class UserResponseMapper {
 

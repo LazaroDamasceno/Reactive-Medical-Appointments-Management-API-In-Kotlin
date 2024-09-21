@@ -3,7 +3,7 @@ package com.api.v1.customers.utils
 import com.api.v1.customers.exceptions.CustomerWasNotFoundException
 import com.api.v1.customers.domain.Customer
 import com.api.v1.customers.domain.CustomerRepository
-import com.api.v1.users.utils.UserFinderUtil
+import com.api.v1.users.UserFinderUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.single

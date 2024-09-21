@@ -1,11 +1,10 @@
 package com.api.v1.customers.services
 
 import com.api.v1.customers.domain.CustomerRepository
-import com.api.v1.customers.exceptions.CustomerWasNotFoundException
 import com.api.v1.customers.exceptions.EmptyCustomerException
 import com.api.v1.customers.utils.CustomerFinderUtil
-import com.api.v1.users.domain.UserRepository
-import com.api.v1.users.utils.UserFinderUtil
+import com.api.v1.users.UserRepository
+import com.api.v1.users.UserFinderUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.withContext

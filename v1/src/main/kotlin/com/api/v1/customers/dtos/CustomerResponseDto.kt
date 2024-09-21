@@ -1,6 +1,6 @@
 package com.api.v1.customers.dtos
 
-import com.api.v1.users.dtos.UserResponseDto
+import com.api.v1.users.UserResponseDto
 import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Instant
 import java.time.ZoneId

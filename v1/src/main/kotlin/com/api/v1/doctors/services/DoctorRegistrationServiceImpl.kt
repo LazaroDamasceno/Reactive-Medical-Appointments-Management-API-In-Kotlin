@@ -6,7 +6,7 @@ import com.api.v1.doctors.dtos.DoctorRegistrationRequestDto
 import com.api.v1.doctors.dtos.DoctorResponseDto
 import com.api.v1.doctors.exceptions.DuplicatedLicenseNumberException
 import com.api.v1.doctors.utils.DoctorResponseMapper
-import com.api.v1.users.domain.UserRepository
+import com.api.v1.users.UserRepository
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count

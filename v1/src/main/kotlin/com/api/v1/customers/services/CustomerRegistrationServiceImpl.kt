@@ -5,8 +5,8 @@ import com.api.v1.customers.domain.CustomerRepository
 import com.api.v1.customers.dtos.CustomerRegistrationRequestDto
 import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.customers.utils.CustomerResponseMapper
-import com.api.v1.users.domain.UserRepository
-import com.api.v1.users.exceptions.DuplicatedSsnException
+import com.api.v1.users.UserRepository
+import com.api.v1.users.DuplicatedSsnException
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count

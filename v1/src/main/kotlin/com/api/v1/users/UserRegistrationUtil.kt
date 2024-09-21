@@ -1,22 +1,19 @@
-package com.api.v1.users.services
+package com.api.v1.users
 
-import com.api.v1.users.domain.User
-import com.api.v1.users.domain.UserRepository
-import com.api.v1.users.exceptions.DuplicatedSsnException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
-private class UserRegistrationServiceImpl: UserRegistrationService {
+@Component
+class UserRegistrationUtil {
 
     @Autowired
     lateinit var userRepository: UserRepository
 
-    override suspend fun register(user: User): User {
+    suspend fun register(user: User): User {
         return withContext(Dispatchers.IO) {
             val isGivenSsnAlreadyUsed = userRepository
                 .findAll()

@@ -4,8 +4,9 @@ import com.api.v1.doctors.domain.DoctorRepository
 import com.api.v1.doctors.dtos.DoctorResponseDto
 import com.api.v1.doctors.utils.DoctorFinderUtil
 import com.api.v1.doctors.utils.DoctorResponseMapper
-import com.api.v1.users.domain.UserRepository
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.users.UserRepository
+import com.api.v1.users.UserUpdatingRequestDto
+import com.api.v1.users.UserUpdatingUtil
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,15 +23,13 @@ private class DoctorUpdatingServiceImpl: DoctorUpdatingService {
     lateinit var doctorRepository: DoctorRepository
 
     @Autowired
-    lateinit var userRepository: UserRepository
+    lateinit var userUpdatingUtil: UserUpdatingUtil
 
     override suspend fun update(licenseNumber: String, requestDto: @Valid UserUpdatingRequestDto): DoctorResponseDto {
         return withContext(Dispatchers.IO) {
             val existingDoctor = doctorFinderUtil.find(licenseNumber)
-            val user = existingDoctor.user
-            val updatedUser = user.update(requestDto)
-            val savedUser = userRepository.save(updatedUser)
-            val updatedDoctor = existingDoctor.update(savedUser)
+            val newUser = userUpdatingUtil.update(existingDoctor.user.ssn, requestDto)
+            val updatedDoctor = existingDoctor.update(newUser)
             val savedDoctor = doctorRepository.save(updatedDoctor)
             DoctorResponseMapper.map(savedDoctor)
         }

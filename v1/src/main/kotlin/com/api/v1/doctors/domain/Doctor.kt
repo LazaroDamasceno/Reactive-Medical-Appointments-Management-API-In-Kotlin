@@ -1,6 +1,6 @@
 package com.api.v1.doctors.domain
 
-import com.api.v1.users.domain.User
+import com.api.v1.users.User
 import jakarta.validation.Valid
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

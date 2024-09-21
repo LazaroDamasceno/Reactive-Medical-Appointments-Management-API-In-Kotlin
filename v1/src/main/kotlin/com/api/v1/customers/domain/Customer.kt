@@ -1,9 +1,8 @@
 package com.api.v1.customers.domain
 
-import com.api.v1.users.domain.User
+import com.api.v1.users.User
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field

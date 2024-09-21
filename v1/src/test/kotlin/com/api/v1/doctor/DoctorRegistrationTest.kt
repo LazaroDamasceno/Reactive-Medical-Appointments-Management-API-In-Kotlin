@@ -1,6 +1,7 @@
-package com.api.v1
+package com.api.v1.doctor
 
-import com.api.v1.users.dtos.UserUpdatingRequestDto
+import com.api.v1.doctors.dtos.DoctorRegistrationRequestDto
+import com.api.v1.users.User
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
@@ -12,39 +13,42 @@ import java.time.LocalDate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-private class DoctorUpdatingTest {
+private class DoctorRegistrationTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
 
-    final val userUpdatingRequestDto = UserUpdatingRequestDto(
+    final val user = User(
         "Gabriel",
         "",
         "Fernandez",
+        "987654321",
         LocalDate.parse("2000-12-12"),
-        "gfernandes@gabrielfernandes.com",
+        "gabriel.fernandes@mail.com",
         "male",
         "1234567890"
     )
+    final val licenseNumber = "1234567"
+    val request = DoctorRegistrationRequestDto(licenseNumber, user)
 
     @Test
     @Order(1)
-    fun testSuccessfulUpdating() {
+    fun testSuccessfulRegistration() {
         webTestClient
-            .put()
-            .uri("api/v1/doctors/${1234567}")
-            .bodyValue(userUpdatingRequestDto)
+            .post()
+            .uri("api/v1/doctors")
+            .bodyValue(request)
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
     }
 
     @Test
-    fun testUnsuccessfulUpdating() {
+    fun testUnsuccessfulRegistration() {
         webTestClient
-            .put()
-            .uri("api/v1/doctors/${1234566}")
-            .bodyValue(userUpdatingRequestDto)
+            .post()
+            .uri("api/v1/doctors")
+            .bodyValue(request)
             .exchange()
             .expectStatus()
             .is5xxServerError()

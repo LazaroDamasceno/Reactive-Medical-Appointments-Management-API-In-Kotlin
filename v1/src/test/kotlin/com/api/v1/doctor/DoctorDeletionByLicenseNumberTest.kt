@@ -1,4 +1,4 @@
-package com.api.v1
+package com.api.v1.doctor
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
@@ -10,39 +10,27 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-private class DoctorRetrievalTest {
+private class DoctorDeletionByLicenseNumberTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
 
+    @Test
     @Order(1)
-    @Test
-    fun testSuccessfulAllDoctorsRetrieval() {
+    fun testSuccessfulDeletion() {
         webTestClient
-            .get()
-            .uri("api/v1/doctors")
-            .exchange()
-            .expectStatus()
-            .is2xxSuccessful()
-    }
-
-    @Order(2)
-    @Test
-    fun testSuccessfulDoctorByLicenseNumberRetrieval() {
-        webTestClient
-            .get()
+            .delete()
             .uri("api/v1/doctors/${1234567}")
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
     }
 
-    @Order(3)
     @Test
-    fun testUnsuccessfulDoctorByLicenseNumberRetrieval() {
+    fun testUnsuccessfulDeletion() {
         webTestClient
-            .get()
-            .uri("api/v1/doctors/${1234566}")
+            .delete()
+            .uri("api/v1/doctors/${1234567}")
             .exchange()
             .expectStatus()
             .is5xxServerError()

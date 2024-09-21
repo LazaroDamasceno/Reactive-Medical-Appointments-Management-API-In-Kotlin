@@ -5,8 +5,7 @@ import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
 import com.api.v1.customers.utils.CustomerFinderUtil
 import com.api.v1.customers.utils.CustomerResponseMapper
-import com.api.v1.users.domain.UserRepository
-import com.api.v1.users.utils.UserFinderUtil
+import com.api.v1.users.UserUpdatingUtil
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,21 +19,16 @@ private class CustomerUpdatingServiceImpl: CustomerUpdatingService {
     lateinit var customerFinderUtil: CustomerFinderUtil
 
     @Autowired
-    lateinit var userFinderUtil: UserFinderUtil
-
-    @Autowired
     lateinit var customerRepository: CustomerRepository
 
     @Autowired
-    lateinit var userRepository: UserRepository
+    lateinit var userUpdatingUtil: UserUpdatingUtil
 
     override suspend fun update(ssn: String, requestDto: @Valid CustomerUpdatingRequestDto): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val existingCustomer = customerFinderUtil.find(ssn)
-            val user = userFinderUtil.find(ssn)
-            val updatedUser = user!!.update(requestDto.userUpdateRequestDto)
-            val savedUser = userRepository.save(updatedUser)
-            val updatedCustomer = existingCustomer.update(savedUser, requestDto.address)
+            val newUser = userUpdatingUtil.update(existingCustomer.user.ssn, requestDto.userUpdateRequestDto)
+            val updatedCustomer = existingCustomer.update(newUser, requestDto.address)
             val savedCustomer = customerRepository.save(updatedCustomer)
             CustomerResponseMapper.map(savedCustomer)
         }

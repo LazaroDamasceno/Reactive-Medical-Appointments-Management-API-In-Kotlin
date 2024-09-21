@@ -1,4 +1,4 @@
-package com.api.v1.users.dtos
+package com.api.v1.users
 
 import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Instant
