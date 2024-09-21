@@ -5,7 +5,7 @@ import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.customers.dtos.CustomerUpdatingRequestDto
 import com.api.v1.customers.utils.CustomerFinderUtil
 import com.api.v1.customers.utils.CustomerResponseMapper
-import com.api.v1.users.UserUpdatingUtil
+import com.api.v1.users.UserUpdatingService
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,7 +22,7 @@ private class CustomerUpdatingServiceImpl: CustomerUpdatingService {
     lateinit var customerRepository: CustomerRepository
 
     @Autowired
-    lateinit var userUpdatingUtil: UserUpdatingUtil
+    lateinit var userUpdatingUtil: UserUpdatingService
 
     override suspend fun update(ssn: String, requestDto: @Valid CustomerUpdatingRequestDto): CustomerResponseDto {
         return withContext(Dispatchers.IO) {

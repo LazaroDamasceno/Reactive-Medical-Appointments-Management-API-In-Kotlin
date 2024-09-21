@@ -5,15 +5,15 @@ import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
-class UserRegistrationUtil {
+@Service
+private class UserRegistrationServiceImpl: UserRegistrationService {
 
     @Autowired
     lateinit var userRepository: UserRepository
 
-    suspend fun register(user: User): User {
+    override suspend fun register(user: User): User {
         return withContext(Dispatchers.IO) {
             val isGivenSsnAlreadyUsed = userRepository
                 .findAll()

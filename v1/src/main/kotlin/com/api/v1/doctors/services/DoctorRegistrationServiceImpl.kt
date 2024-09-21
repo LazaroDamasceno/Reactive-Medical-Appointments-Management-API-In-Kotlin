@@ -6,6 +6,7 @@ import com.api.v1.doctors.dtos.DoctorRegistrationRequestDto
 import com.api.v1.doctors.dtos.DoctorResponseDto
 import com.api.v1.doctors.exceptions.DuplicatedLicenseNumberException
 import com.api.v1.doctors.utils.DoctorResponseMapper
+import com.api.v1.users.UserRegistrationService
 import com.api.v1.users.UserRepository
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ private class DoctorRegistrationServiceImpl: DoctorRegistrationService {
     lateinit var doctorRepository: DoctorRepository
 
     @Autowired
-    lateinit var userRegistrationService: UserRepository
+    lateinit var userRegistrationService: UserRegistrationService
 
     override suspend fun register(responseDto: @Valid DoctorRegistrationRequestDto): DoctorResponseDto {
         return withContext(Dispatchers.IO) {
@@ -33,7 +34,7 @@ private class DoctorRegistrationServiceImpl: DoctorRegistrationService {
             if (isLicenseNumberDuplicated) {
                 throw DuplicatedLicenseNumberException(responseDto.licenseNumber)
             }
-            val savedUser = userRegistrationService.save(responseDto.user)
+            val savedUser = userRegistrationService.register(responseDto.user)
             val doctor = Doctor(responseDto.licenseNumber, savedUser)
             val savedDoctor = doctorRepository.save(doctor)
             DoctorResponseMapper.map(savedDoctor)

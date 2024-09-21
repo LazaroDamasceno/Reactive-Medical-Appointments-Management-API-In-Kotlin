@@ -4,10 +4,10 @@ import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
-class UserUpdatingUtil {
+@Service
+private class UserUpdatingServiceImpl: UserUpdatingService {
 
     @Autowired
     private lateinit var userFinderUtil: UserFinderUtil
@@ -15,7 +15,7 @@ class UserUpdatingUtil {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    suspend fun update(ssn: String, requestDto: @Valid UserUpdatingRequestDto): User {
+    override suspend fun update(ssn: String, requestDto: @Valid UserUpdatingRequestDto): User {
         return withContext(Dispatchers.IO) {
             val existingUser = userFinderUtil.find(ssn)!!.finish()
             val finishedUser = userRepository.save(existingUser)

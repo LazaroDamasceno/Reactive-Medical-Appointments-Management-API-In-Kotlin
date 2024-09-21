@@ -7,6 +7,7 @@ import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.customers.utils.CustomerResponseMapper
 import com.api.v1.users.UserRepository
 import com.api.v1.users.DuplicatedSsnException
+import com.api.v1.users.UserRegistrationService
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
@@ -24,6 +25,9 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
+    @Autowired
+    lateinit var userRegistrationService: UserRegistrationService
+
     override suspend fun register(requestDto: @Valid CustomerRegistrationRequestDto): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val isGivenSsnAlreadyRegistered = userRepository
@@ -31,7 +35,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 .filter { e -> e.ssn == requestDto.user.ssn }
                 .count() != 0
             if (isGivenSsnAlreadyRegistered)  throw DuplicatedSsnException(requestDto.user.ssn)
-            val savedUser = userRepository.save(requestDto.user)
+            val savedUser = userRegistrationService.register(requestDto.user)
             val customer = Customer(savedUser, requestDto.address)
             val savedCustomer = customerRepository.save(customer)
             CustomerResponseMapper.map(savedCustomer)
