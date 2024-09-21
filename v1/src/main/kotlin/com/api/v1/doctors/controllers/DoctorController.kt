@@ -2,6 +2,7 @@ package com.api.v1.doctors.controllers
 
 import com.api.v1.doctors.dtos.DoctorRegistrationRequestDto
 import com.api.v1.doctors.dtos.DoctorResponseDto
+import com.api.v1.doctors.services.DoctorDeletionService
 import com.api.v1.doctors.services.DoctorRegistrationService
 import com.api.v1.doctors.services.DoctorRetrievalService
 import com.api.v1.doctors.services.DoctorUpdatingService
@@ -24,6 +25,9 @@ class DoctorController {
 
     @Autowired
     private lateinit var doctorRetrievalService: DoctorRetrievalService
+
+    @Autowired
+    private lateinit var doctorDeletionService: DoctorDeletionService
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -50,6 +54,18 @@ class DoctorController {
     @ResponseStatus(value = HttpStatus.OK)
     suspend fun findByLicenseNumber(@PathVariable licenseNumber: String) {
         return doctorRetrievalService.findByLicenseNumber(licenseNumber)
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteAll() {
+        return doctorDeletionService.deleteAll()
+    }
+
+    @DeleteMapping("{licenseNumber}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteByLicenseNumber(@PathVariable licenseNumber: String) {
+        return doctorDeletionService.deleteByLicenseNumber(licenseNumber)
     }
 
 }
