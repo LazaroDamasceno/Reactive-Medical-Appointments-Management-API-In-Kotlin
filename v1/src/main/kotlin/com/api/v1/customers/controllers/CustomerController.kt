@@ -8,6 +8,7 @@ import com.api.v1.customers.services.CustomerRegistrationService
 import com.api.v1.customers.services.CustomerRetrievalService
 import com.api.v1.customers.services.CustomerUpdatingService
 import jakarta.validation.Valid
+import kotlinx.coroutines.flow.Flow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -54,7 +55,7 @@ class CustomerController {
     }
 
     @GetMapping
-    suspend fun findAll(): ResponseEntity<Flux<CustomerResponseDto>> {
+    suspend fun findAll(): ResponseEntity<Flow<CustomerResponseDto>> {
         val allCustomers = customerRetrievalService.findAll()
         return ResponseEntity.ok(allCustomers)
     }

@@ -1,6 +1,6 @@
 package com.api.v1.customers.utils
 
-import com.api.v1.customers.exceptions.CustomerWasNotFoundException
+import com.api.v1.customers.exceptions.CustomerNotFoundException
 import com.api.v1.customers.domain.Customer
 import com.api.v1.customers.domain.CustomerRepository
 import com.api.v1.users.UserFinderUtil
@@ -24,7 +24,7 @@ class CustomerFinderUtil {
         return withContext(Dispatchers.IO) {
             val existingUser = userFinderUtil.find(ssn);
             if (existingUser == null) {
-                throw CustomerWasNotFoundException(ssn)
+                throw CustomerNotFoundException(ssn)
             }
             customerRepository
                 .findAll()
