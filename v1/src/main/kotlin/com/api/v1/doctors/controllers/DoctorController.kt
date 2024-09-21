@@ -8,6 +8,7 @@ import com.api.v1.doctors.services.DoctorRetrievalService
 import com.api.v1.doctors.services.DoctorUpdatingService
 import com.api.v1.users.UserUpdatingRequestDto
 import jakarta.validation.Valid
+import kotlinx.coroutines.flow.Flow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -46,7 +47,7 @@ class DoctorController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    suspend fun findAll(): Flux<DoctorResponseDto> {
+    suspend fun findAll(): Flow<DoctorResponseDto> {
         return doctorRetrievalService.findAll()
     }
 

@@ -1,11 +1,11 @@
 package com.api.v1.doctors.services
 
 import com.api.v1.doctors.dtos.DoctorResponseDto
-import reactor.core.publisher.Flux
+import kotlinx.coroutines.flow.Flow
 
 interface DoctorRetrievalService {
 
-    suspend fun findAll(): Flux<DoctorResponseDto>
+    suspend fun findAll(): Flow<DoctorResponseDto>
     suspend fun findByLicenseNumber(licenseNumber: String)
 
 }

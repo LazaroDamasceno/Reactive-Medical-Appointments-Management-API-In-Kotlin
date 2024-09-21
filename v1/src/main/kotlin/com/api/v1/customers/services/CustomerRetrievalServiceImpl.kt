@@ -6,13 +6,12 @@ import com.api.v1.customers.exceptions.EmptyCustomerException
 import com.api.v1.customers.utils.CustomerFinderUtil
 import com.api.v1.customers.utils.CustomerResponseMapper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.reactor.asFlux
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 
 @Service
 private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
@@ -23,7 +22,7 @@ private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
     @Autowired
     lateinit var customerFinderUtil: CustomerFinderUtil
 
-    override suspend fun findAll(): Flux<CustomerResponseDto> {
+    override suspend fun findAll(): Flow<CustomerResponseDto> {
         return withContext(Dispatchers.IO) {
             val allCustomers = customerRepository.findAll()
             if (allCustomers.count() == 0) {
@@ -31,7 +30,6 @@ private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
             }
             allCustomers
                 .map { e -> CustomerResponseMapper.map(e) }
-                .asFlux()
         }
     }
 
