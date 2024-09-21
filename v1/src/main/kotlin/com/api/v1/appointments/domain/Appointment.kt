@@ -1,5 +1,6 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.domain
 
+import com.api.v1.appointments.utils.AppointmentOrderNumberGenerator
 import com.api.v1.customers.domain.Customer
 import com.api.v1.doctors.domain.Doctor
 import org.springframework.data.annotation.Id

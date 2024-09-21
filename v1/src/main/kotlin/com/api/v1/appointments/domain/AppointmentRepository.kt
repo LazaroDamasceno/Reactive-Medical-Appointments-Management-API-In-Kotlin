@@ -1,4 +1,4 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.domain
 
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import java.math.BigInteger

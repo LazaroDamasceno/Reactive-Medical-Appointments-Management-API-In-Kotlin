@@ -1,5 +1,10 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.services
 
+import com.api.v1.appointments.domain.Appointment
+import com.api.v1.appointments.domain.AppointmentRepository
+import com.api.v1.appointments.dtos.AppointmentResponseDto
+import com.api.v1.appointments.dtos.AppointmentSchedulingRequestDto
+import com.api.v1.appointments.utils.AppointmentResponseMapper
 import com.api.v1.customers.utils.CustomerFinderUtil
 import com.api.v1.doctors.utils.DoctorFinderUtil
 import jakarta.validation.Valid

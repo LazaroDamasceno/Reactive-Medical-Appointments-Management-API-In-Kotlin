@@ -1,4 +1,4 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.utils
 
 import java.math.BigInteger
 import java.time.ZonedDateTime

@@ -1,5 +1,7 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.utils
 
+import com.api.v1.appointments.dtos.AppointmentResponseDto
+import com.api.v1.appointments.domain.Appointment
 import com.api.v1.customers.utils.CustomerResponseMapper
 import com.api.v1.doctors.utils.DoctorResponseMapper
 

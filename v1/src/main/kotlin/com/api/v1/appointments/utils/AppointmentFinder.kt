@@ -1,5 +1,8 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.utils
 
+import com.api.v1.appointments.exceptions.AppointmentWasNotFoundException
+import com.api.v1.appointments.domain.Appointment
+import com.api.v1.appointments.domain.AppointmentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired

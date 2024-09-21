@@ -1,4 +1,4 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.dtos
 
 import jakarta.validation.constraints.NotNull
 import java.time.LocalDateTime

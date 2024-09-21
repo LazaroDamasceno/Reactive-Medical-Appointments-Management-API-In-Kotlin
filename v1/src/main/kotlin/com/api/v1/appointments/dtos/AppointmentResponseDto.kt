@@ -1,4 +1,4 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.dtos
 
 import com.api.v1.customers.dtos.CustomerResponseDto
 import com.api.v1.doctors.dtos.DoctorResponseDto

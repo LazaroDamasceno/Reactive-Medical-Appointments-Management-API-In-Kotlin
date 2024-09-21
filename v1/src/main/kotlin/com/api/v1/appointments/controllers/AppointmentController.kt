@@ -1,5 +1,8 @@
-package com.api.v1.appointments
+package com.api.v1.appointments.controllers
 
+import com.api.v1.appointments.dtos.AppointmentResponseDto
+import com.api.v1.appointments.dtos.AppointmentSchedulingRequestDto
+import com.api.v1.appointments.services.AppointmentSchedulingService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
