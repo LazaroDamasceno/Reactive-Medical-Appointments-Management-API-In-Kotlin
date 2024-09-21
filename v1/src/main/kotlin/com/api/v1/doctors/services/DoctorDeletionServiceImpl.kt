@@ -1,44 +1,36 @@
 package com.api.v1.doctors.services
 
 import com.api.v1.doctors.domain.DoctorRepository
-import com.api.v1.doctors.dtos.DoctorResponseDto
 import com.api.v1.doctors.exceptions.EmptyDoctorException
 import com.api.v1.doctors.utils.DoctorFinderUtil
-import com.api.v1.doctors.utils.DoctorResponseMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.reactor.asFlux
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 
 @Service
-private class DoctorRetrievalServiceImpl: DoctorRetrievalService  {
-
-    @Autowired
-    lateinit var doctorFinderUtil: DoctorFinderUtil
+private class DoctorDeletionServiceImpl: DoctorDeletionService {
 
     @Autowired
     lateinit var doctorRepository: DoctorRepository
 
-    override suspend fun findAll(): Flux<DoctorResponseDto> {
+    @Autowired
+    lateinit var doctorFinderUtil: DoctorFinderUtil
+
+    override suspend fun deleteAll() {
         return withContext(Dispatchers.IO) {
             if (doctorRepository.findAll().count() == 0) {
                 throw EmptyDoctorException()
             }
-            doctorRepository
-                .findAll()
-                .map { e -> DoctorResponseMapper.map(e) }
-                .asFlux()
+            doctorRepository.deleteAll()
         }
     }
 
-    override suspend fun findByLicenseNumber(licenseNumber: String) {
+    override suspend fun deleteByLicenseNumber(licenseNumber: String) {
         return withContext(Dispatchers.IO) {
             val existingDoctor = doctorFinderUtil.find(licenseNumber)
-            DoctorResponseMapper.map(existingDoctor)
+            doctorRepository.delete(existingDoctor)
         }
     }
 
