@@ -65,12 +65,6 @@ class CustomerController {
         return ResponseEntity.ok(customer)
     }
 
-    @DeleteMapping
-    suspend fun deleteAll(): ResponseEntity<Void> {
-        customerDeletionService.deleteAll()
-        return ResponseEntity.status(204).build()
-    }
-
     @DeleteMapping("{ssn}")
     suspend fun deleteBySsn(@PathVariable ssn: String): ResponseEntity<Void> {
         customerDeletionService.deleteBySsn(ssn)

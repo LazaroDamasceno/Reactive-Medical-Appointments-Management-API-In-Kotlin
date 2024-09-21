@@ -56,12 +56,6 @@ class DoctorController {
         return doctorRetrievalService.findByLicenseNumber(licenseNumber)
     }
 
-    @DeleteMapping
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    suspend fun deleteAll() {
-        return doctorDeletionService.deleteAll()
-    }
-
     @DeleteMapping("{licenseNumber}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     suspend fun deleteByLicenseNumber(@PathVariable licenseNumber: String) {

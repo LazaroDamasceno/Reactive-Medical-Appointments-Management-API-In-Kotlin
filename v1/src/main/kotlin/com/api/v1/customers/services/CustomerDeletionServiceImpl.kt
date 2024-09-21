@@ -7,9 +7,13 @@ import com.api.v1.users.UserRepository
 import com.api.v1.users.UserFinderUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.reactor.asFlux
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 
 @Service
 private class CustomerDeletionServiceImpl: CustomerDeletionService {
@@ -25,18 +29,6 @@ private class CustomerDeletionServiceImpl: CustomerDeletionService {
 
     @Autowired
     lateinit var userFinderUtil: UserFinderUtil
-
-    override suspend fun deleteAll() {
-        return withContext(Dispatchers.IO) {
-            val isUserEmpty = userRepository.findAll().count() == 0
-            val isCustomerEmpty = customerRepository.findAll().count() == 0
-            if (isUserEmpty || isCustomerEmpty) {
-                throw EmptyCustomerException()
-            }
-            customerRepository.deleteAll()
-            userRepository.deleteAll()
-        }
-    }
 
     override suspend fun deleteBySsn(ssn: String) {
         return withContext(Dispatchers.IO) {
