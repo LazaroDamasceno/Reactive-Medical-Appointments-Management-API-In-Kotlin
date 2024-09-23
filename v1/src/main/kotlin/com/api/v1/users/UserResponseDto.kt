@@ -1,19 +1,18 @@
 package com.api.v1.users
 
-import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
 data class UserResponseDto(
-    @Field val fullName: String,
-    @Field val ssn: String,
-    @Field var birthDate: LocalDate,
-    @Field val email: String,
-    @Field val gender: String,
-    @Field val phoneNumber: String,
-    @Field val createdAt: Instant,
-    @Field val creationZoneId: ZoneId,
-    @Field val updatedAt: Instant?,
-    @Field val updatingZonedId: ZoneId?
+    val fullName: String,
+    val ssn: String,
+    var birthDate: LocalDate,
+    val email: String,
+    val gender: String,
+    val phoneNumber: String,
+    val createdAt: Instant,
+    val creationZoneId: ZoneId,
+    val updatedAt: Instant?,
+    val updatingZonedId: ZoneId?
 )
