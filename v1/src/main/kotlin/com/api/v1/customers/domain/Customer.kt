@@ -4,35 +4,41 @@ import com.api.v1.users.User
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Table
-import org.springframework.data.relational.core.mapping.Column
-import java.time.ZonedDateTime
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.time.Instant
+import java.time.ZoneId
 import java.util.*
 
-@Table("v1_customers")
+@Document(collection = "v1_customers")
 data class Customer(
-    @Id val id: String,
-    @Column var user: User,
-    @Column var address: String,
-    @Column val createdAt: ZonedDateTime,
-    @Column var updatedAt: ZonedDateTime?,
+    @Id val id: UUID,
+    @Field var user: User,
+    @Field var address: String,
+    @Field val createdAt: Instant,
+    @Field val creationZoneId: ZoneId,
+    @Field var updatedAt: Instant?,
+    @Field var updatingZonedId: ZoneId?
 ) {
 
     constructor(
         user: @Valid User,
         address: @NotBlank String
     ): this(
-        UUID.randomUUID().toString(),
+        UUID.randomUUID(),
         user,
         address,
-        ZonedDateTime.now(),
+        Instant.now(),
+        ZoneId.systemDefault(),
+        null,
         null
     )
 
     fun update(user: @Valid User, address: @NotBlank String): Customer {
         this.user = user
         this.address = address
-        updatedAt = ZonedDateTime.now()
+        updatedAt = Instant.now()
+        updatingZonedId = ZoneId.systemDefault()
         return this
     }
 

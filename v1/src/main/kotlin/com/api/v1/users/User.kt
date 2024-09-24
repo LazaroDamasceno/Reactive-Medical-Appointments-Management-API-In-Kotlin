@@ -5,25 +5,28 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Table
-import org.springframework.data.relational.core.mapping.Column
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.time.Instant
 import java.time.LocalDate
-import java.time.ZonedDateTime
+import java.time.ZoneId
 import java.util.*
 
-@Table("v1_users")
+@Document(collection = "v1_users")
 data class User(
-    @Id var id: String,
-    @Column var firstName: String,
-    @Column var middleName: String?,
-    @Column var lastName: String,
-    @Column val ssn: String,
-    @Column var birthDate: LocalDate,
-    @Column var email: String,
-    @Column var gender: String,
-    @Column var phoneNumber: String,
-    @Column val createdAt: ZonedDateTime,
-    @Column var updatedAt: ZonedDateTime?
+    @Id var id: UUID,
+    @Field var firstName: String,
+    @Field var middleName: String?,
+    @Field var lastName: String,
+    @Field val ssn: String,
+    @Field var birthDate: LocalDate,
+    @Field var email: String,
+    @Field var gender: String,
+    @Field var phoneNumber: String,
+    @Field val createdAt: Instant,
+    @Field val creationZoneId: ZoneId,
+    @Field var updatedAt: Instant?,
+    @Field var updatingZonedId: ZoneId?
 ) {
 
     constructor(
@@ -36,7 +39,7 @@ data class User(
         gender: @NotBlank @Size(min=1) String,
         phoneNumber: @NotBlank @Size(min=10, max=10) String,
     ): this(
-        UUID.randomUUID().toString(),
+        UUID.randomUUID(),
         firstName,
         middleName,
         lastName,
@@ -45,7 +48,9 @@ data class User(
         email,
         gender,
         phoneNumber,
-        ZonedDateTime.now(),
+        Instant.now(),
+        ZoneId.systemDefault(),
+        null,
         null
     )
 
@@ -55,12 +60,13 @@ data class User(
     }
 
     fun finish(): User {
-        updatedAt = ZonedDateTime.now()
+        updatedAt = Instant.now()
+        updatingZonedId = ZoneId.systemDefault()
         return this
     }
 
     fun update(requestDto: UserUpdatingRequestDto): User {
-        id = UUID.randomUUID().toString()
+        id = UUID.randomUUID()
         firstName = requestDto.firstName
         middleName = requestDto.middleName
         lastName = requestDto.lastName
@@ -69,6 +75,7 @@ data class User(
         gender = requestDto.gender
         phoneNumber = requestDto.phoneNumber
         updatedAt = null
+        updatingZonedId = null
         return this
     }
 

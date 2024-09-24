@@ -3,34 +3,40 @@ package com.api.v1.doctors.domain
 import com.api.v1.users.User
 import jakarta.validation.Valid
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Table
-import org.springframework.data.relational.core.mapping.Column
-import java.time.ZonedDateTime
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
+import java.time.Instant
+import java.time.ZoneId
 import java.util.UUID
 
-@Table("v1_doctors")
+@Document(collection = "v1_doctors")
 data class Doctor(
-    @Id val id: String,
-    @Column val licenseNumber: String,
-    @Column var user: User,
-    @Column val createdAt: ZonedDateTime,
-    @Column var updatedAt: ZonedDateTime?,
+    @Id val id: UUID,
+    @Field val licenseNumber: String,
+    @Field var user: User,
+    @Field val createdAt: Instant,
+    @Field val creationZonedId: ZoneId,
+    @Field var updatedAt: Instant?,
+    @Field var updatingZonedId: ZoneId?
 ) {
 
     constructor(
         licenseNumber: String,
         user: @Valid User
     ): this(
-        UUID.randomUUID().toString(),
+        UUID.randomUUID(),
         licenseNumber,
         user,
-        ZonedDateTime.now(),
+        Instant.now(),
+        ZoneId.systemDefault(),
         null,
+        null
     )
 
     fun update(user: @Valid User): Doctor {
         this.user = user
-        updatedAt = ZonedDateTime.now()
+        updatedAt = Instant.now()
+        updatingZonedId = ZoneId.systemDefault()
         return this
     }
 

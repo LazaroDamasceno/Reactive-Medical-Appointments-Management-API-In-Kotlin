@@ -12,7 +12,9 @@ class UserResponseMapper {
                 user.gender,
                 user.phoneNumber,
                 user.createdAt,
+                user.creationZoneId,
                 user.updatedAt,
+                user.updatingZonedId
             )
         }
     }

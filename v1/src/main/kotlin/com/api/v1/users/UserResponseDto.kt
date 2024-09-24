@@ -2,7 +2,7 @@ package com.api.v1.users
 
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZonedDateTime
+import java.time.ZoneId
 
 data class UserResponseDto(
     val fullName: String,
@@ -11,6 +11,8 @@ data class UserResponseDto(
     val email: String,
     val gender: String,
     val phoneNumber: String,
-    val createdAt: ZonedDateTime,
-    val updatedAt: ZonedDateTime?
+    val createdAt: Instant,
+    val creationZoneId: ZoneId,
+    val updatedAt: Instant?,
+    val updatingZonedId: ZoneId?
 )

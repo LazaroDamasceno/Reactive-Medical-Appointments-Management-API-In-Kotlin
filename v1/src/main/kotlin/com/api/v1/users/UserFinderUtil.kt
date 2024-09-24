@@ -19,6 +19,7 @@ class UserFinderUtil {
                 .findAll()
                 .filter { e -> e.ssn == ssn
                         && e.updatedAt == null
+                        && e.updatingZonedId == null
                 }
                 .singleOrNull()
         }
