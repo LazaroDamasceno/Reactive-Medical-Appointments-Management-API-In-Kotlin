@@ -13,7 +13,7 @@ import java.util.*
 
 @Table("v1_users")
 data class User(
-    @Id var id: UUID,
+    @Id var id: String,
     @Column var firstName: String,
     @Column var middleName: String?,
     @Column var lastName: String,
@@ -36,7 +36,7 @@ data class User(
         gender: @NotBlank @Size(min=1) String,
         phoneNumber: @NotBlank @Size(min=10, max=10) String,
     ): this(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         firstName,
         middleName,
         lastName,
@@ -60,7 +60,7 @@ data class User(
     }
 
     fun update(requestDto: UserUpdatingRequestDto): User {
-        id = UUID.randomUUID()
+        id = UUID.randomUUID().toString()
         firstName = requestDto.firstName
         middleName = requestDto.middleName
         lastName = requestDto.lastName

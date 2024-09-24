@@ -11,7 +11,7 @@ import java.util.*
 
 @Table("v1_customers")
 data class Customer(
-    @Id val id: UUID,
+    @Id val id: String,
     @Column var user: User,
     @Column var address: String,
     @Column val createdAt: ZonedDateTime,
@@ -22,7 +22,7 @@ data class Customer(
         user: @Valid User,
         address: @NotBlank String
     ): this(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         user,
         address,
         ZonedDateTime.now(),

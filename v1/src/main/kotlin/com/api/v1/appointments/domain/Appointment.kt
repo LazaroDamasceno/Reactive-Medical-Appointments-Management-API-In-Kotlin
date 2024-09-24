@@ -10,19 +10,21 @@ import java.math.BigInteger
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.UUID
 
 @Table("v1_appointments")
 class Appointment(
-    @Id val id: UUID,
+    @Id val id: String,
     @Column val orderNumber: BigInteger,
     @Column val doctor: Doctor,
     @Column val customer: Customer,
     @Column val bookedDate: LocalDateTime,
-    @Column val scheduledAt: ZonedDateTime,
-    @Column var canceledAt: ZonedDateTime?,
-    @Column var finishedAt: ZonedDateTime?,
+    @Column val scheduledAt: Instant,
+    @Column val schedulingZonedId: ZoneId,
+    @Column var canceledAt: Instant?,
+    @Column var cancellationZoneId: ZoneId?,
+    @Column var finishedAt: Instant?,
+    @Column var finishingZoneId: ZoneId?
 ) {
 
     constructor(
@@ -30,23 +32,28 @@ class Appointment(
         customer: Customer,
         bookedDate: LocalDateTime
     ): this(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         AppointmentOrderNumberGenerator.generate(),
         doctor,
         customer,
         bookedDate,
-        ZonedDateTime.now(),
+        Instant.now(),
+        ZoneId.systemDefault(),
         null,
         null,
+        null,
+        null
     )
 
     fun cancel(): Appointment {
-        canceledAt = ZonedDateTime.now()
+        canceledAt = Instant.now()
+        cancellationZoneId = ZoneId.systemDefault()
         return this
     }
 
     fun finish(): Appointment {
-        finishedAt = ZonedDateTime.now()
+        finishedAt = Instant.now()
+        finishingZoneId = ZoneId.systemDefault()
         return this
     }
 
