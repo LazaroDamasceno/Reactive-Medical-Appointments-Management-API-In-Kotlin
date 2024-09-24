@@ -15,11 +15,8 @@ class AppointmentResponseMapper {
                 CustomerResponseMapper.map(appointment.customer),
                 appointment.bookedDate,
                 appointment.scheduledAt,
-                appointment.schedulingZonedId,
                 appointment.canceledAt,
-                appointment.cancellationZoneId,
-                appointment.finishedAt,
-                appointment.finishingZoneId
+                appointment.finishedAt
             )
         }
     }
