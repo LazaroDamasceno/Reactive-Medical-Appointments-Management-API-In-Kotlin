@@ -4,27 +4,27 @@ import com.api.v1.appointments.utils.AppointmentOrderNumberGenerator
 import com.api.v1.customers.domain.Customer
 import com.api.v1.doctors.domain.Doctor
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.Field
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.relational.core.mapping.Column
 import java.math.BigInteger
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.UUID
 
-@Document(collection = "v1_appointments")
+@Table("v1_appointments")
 class Appointment(
-    @Id val id: UUID,
-    @Field val orderNumber: BigInteger,
-    @Field val doctor: Doctor,
-    @Field val customer: Customer,
-    @Field val bookedDate: LocalDateTime,
-    @Field val scheduledAt: Instant,
-    @Field val schedulingZonedId: ZoneId,
-    @Field var canceledAt: Instant?,
-    @Field var cancellationZoneId: ZoneId?,
-    @Field var finishedAt: Instant?,
-    @Field var finishingZoneId: ZoneId?
+    @Id val id: String,
+    @Column val orderNumber: BigInteger,
+    @Column val doctor: Doctor,
+    @Column val customer: Customer,
+    @Column val bookedDate: LocalDateTime,
+    @Column val scheduledAt: Instant,
+    @Column val schedulingZonedId: ZoneId,
+    @Column var canceledAt: Instant?,
+    @Column var cancellationZoneId: ZoneId?,
+    @Column var finishedAt: Instant?,
+    @Column var finishingZoneId: ZoneId?
 ) {
 
     constructor(
@@ -32,7 +32,7 @@ class Appointment(
         customer: Customer,
         bookedDate: LocalDateTime
     ): this(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         AppointmentOrderNumberGenerator.generate(),
         doctor,
         customer,

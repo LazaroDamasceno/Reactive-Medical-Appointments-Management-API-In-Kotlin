@@ -12,9 +12,7 @@ class CustomerResponseMapper {
                 UserResponseMapper.map(customer.user),
                 customer.address,
                 customer.createdAt,
-                customer.creationZoneId,
-                customer.updatedAt,
-                customer.updatingZonedId
+                customer.updatedAt
             )
         }
     }

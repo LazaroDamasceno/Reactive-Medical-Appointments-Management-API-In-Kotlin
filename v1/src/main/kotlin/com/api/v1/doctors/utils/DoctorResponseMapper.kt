@@ -12,9 +12,7 @@ class DoctorResponseMapper {
                 doctor.licenseNumber,
                 UserResponseMapper.map(doctor.user),
                 doctor.createdAt,
-                doctor.creationZonedId,
                 doctor.updatedAt,
-                doctor.updatingZonedId
             )
         }
     }
