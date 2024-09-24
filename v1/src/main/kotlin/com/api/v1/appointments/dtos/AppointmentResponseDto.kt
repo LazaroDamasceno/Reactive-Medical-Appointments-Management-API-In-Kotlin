@@ -6,7 +6,7 @@ import java.math.BigInteger
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
-data class AppointmentResponseDto(
+data class  AppointmentResponseDto(
     val orderNumber: BigInteger,
     val doctor: DoctorResponseDto,
     val customer: CustomerResponseDto,

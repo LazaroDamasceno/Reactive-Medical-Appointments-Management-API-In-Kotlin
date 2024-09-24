@@ -10,7 +10,7 @@ import java.util.UUID
 
 @Table("v1_doctors")
 data class Doctor(
-    @Id val id: String,
+    @Id val id: UUID,
     @Column val licenseNumber: String,
     @Column var user: User,
     @Column val createdAt: ZonedDateTime,
@@ -21,7 +21,7 @@ data class Doctor(
         licenseNumber: String,
         user: @Valid User
     ): this(
-        UUID.randomUUID().toString(),
+        UUID.randomUUID(),
         licenseNumber,
         user,
         ZonedDateTime.now(),
