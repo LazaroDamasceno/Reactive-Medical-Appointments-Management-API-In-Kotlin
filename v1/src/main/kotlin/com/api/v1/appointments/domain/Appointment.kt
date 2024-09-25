@@ -13,14 +13,14 @@ import java.time.ZoneId
 import java.util.UUID
 
 @Document(collection = "v1_appointments")
-class Appointment(
+data class Appointment(
     @Id val id: UUID,
     @Field val orderNumber: BigInteger,
     @Field val doctor: Doctor,
     @Field val customer: Customer,
     @Field val bookedDate: LocalDateTime,
-    @Field val scheduledAt: Instant,
-    @Field val schedulingZonedId: ZoneId,
+    @Field val bookedAt: Instant,
+    @Field val bookingZoneId: ZoneId,
     @Field var canceledAt: Instant?,
     @Field var cancellationZoneId: ZoneId?,
     @Field var finishedAt: Instant?,

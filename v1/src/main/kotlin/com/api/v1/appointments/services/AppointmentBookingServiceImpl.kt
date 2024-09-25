@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-private class AppointmentSchedulingServiceImpl: AppointmentSchedulingService {
+private class AppointmentSchedulingServiceImpl: AppointmentBookingService {
 
     @Autowired
     lateinit var appointmentRepository: AppointmentRepository

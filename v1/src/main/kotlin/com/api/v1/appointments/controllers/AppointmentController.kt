@@ -4,7 +4,7 @@ import com.api.v1.appointments.dtos.AppointmentResponseDto
 import com.api.v1.appointments.dtos.AppointmentSchedulingRequestDto
 import com.api.v1.appointments.services.AppointmentCancellationService
 import com.api.v1.appointments.services.AppointmentFinishingService
-import com.api.v1.appointments.services.AppointmentSchedulingService
+import com.api.v1.appointments.services.AppointmentBookingService
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 class AppointmentController {
 
     @Autowired
-    private lateinit var appointmentSchedulingService: AppointmentSchedulingService
+    private lateinit var appointmentSchedulingService: AppointmentBookingService
 
     @Autowired
     private lateinit var appointmentFinishingService: AppointmentFinishingService

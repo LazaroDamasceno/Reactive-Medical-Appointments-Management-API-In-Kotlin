@@ -1,9 +1,11 @@
 package com.api.v1.appointments.utils
 
-import com.api.v1.appointments.exceptions.AppointmentWasNotFoundException
+import com.api.v1.appointments.exceptions.AppointmentNotFoundException
 import com.api.v1.appointments.domain.Appointment
 import com.api.v1.appointments.domain.AppointmentRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -17,9 +19,12 @@ class AppointmentFinderUtil {
 
     suspend fun find(orderNumber: String): Appointment {
         return withContext(Dispatchers.IO) {
-            val existingAppointment = appointmentRepository.findByOrderNumber(BigInteger(orderNumber))
+            val existingAppointment = appointmentRepository
+                .findAll()
+                .filter { e -> e.orderNumber == BigInteger(orderNumber) }
+                .singleOrNull()
             if (existingAppointment == null) {
-                throw AppointmentWasNotFoundException(orderNumber)
+                throw AppointmentNotFoundException(orderNumber)
             }
             existingAppointment
         }
