@@ -23,7 +23,6 @@ class AppointmentController {
     @Autowired
     private lateinit var appointmentCancellationService: AppointmentCancellationService
 
-
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     suspend fun schedule(@RequestBody responseDto: @Valid AppointmentSchedulingRequestDto): AppointmentResponseDto {
