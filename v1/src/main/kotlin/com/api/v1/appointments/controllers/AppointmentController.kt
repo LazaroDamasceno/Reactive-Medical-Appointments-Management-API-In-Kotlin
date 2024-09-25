@@ -35,7 +35,7 @@ class AppointmentController {
         return appointmentFinishingService.finish(orderNumber)
     }
 
-    @PatchMapping("{orderNumber}/cancelation")
+    @PatchMapping("{orderNumber}/cancellation")
     @ResponseStatus(value = HttpStatus.OK)
     suspend fun cancel(@PathVariable orderNumber: String): AppointmentResponseDto {
         return appointmentCancellationService.cancel(orderNumber)
