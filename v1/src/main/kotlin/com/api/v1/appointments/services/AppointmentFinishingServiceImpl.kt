@@ -6,8 +6,10 @@ import com.api.v1.appointments.utils.AppointmentResponseMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
-class AppointmentFinishingServiceImpl: AppointmentFinishingService {
+@Service
+private class AppointmentFinishingServiceImpl: AppointmentFinishingService {
 
     @Autowired
     lateinit var appointmentFinderUtil: AppointmentFinderUtil
