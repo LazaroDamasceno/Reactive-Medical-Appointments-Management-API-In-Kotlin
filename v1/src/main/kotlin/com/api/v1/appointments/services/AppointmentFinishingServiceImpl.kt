@@ -1,6 +1,7 @@
 package com.api.v1.appointments.services
 
 import com.api.v1.appointments.domain.AppointmentRepository
+import com.api.v1.appointments.exceptions.InvalidAppointmentException
 import com.api.v1.appointments.utils.AppointmentFinderUtil
 import com.api.v1.appointments.utils.AppointmentResponseMapper
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,9 @@ private class AppointmentFinishingServiceImpl: AppointmentFinishingService {
     override suspend fun finish(orderNumber: String) {
         return withContext(Dispatchers.IO) {
             val appointment = appointmentFinderUtil.find(orderNumber)
+            if (appointment.canceledAt != null || appointment.finishedAt != null) {
+                throw InvalidAppointmentException(orderNumber)
+            }
             val finishAppointment = appointment.finish()
             val savedFinishedAppointment = appointmentRepository.save(finishAppointment)
             AppointmentResponseMapper.map(savedFinishedAppointment)
