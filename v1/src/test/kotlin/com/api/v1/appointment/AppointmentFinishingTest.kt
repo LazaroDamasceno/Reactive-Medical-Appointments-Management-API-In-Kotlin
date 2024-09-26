@@ -20,7 +20,7 @@ private class AppointmentFinishingTest {
     fun testSuccessfulFinishing() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/2024202425221744/finishing")
+            .uri("api/v1/appointments/20240002/finishing")
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
@@ -30,7 +30,7 @@ private class AppointmentFinishingTest {
     fun testUnsuccessfulFinishing() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/2024202425221744/finishing")
+            .uri("api/v1/appointments/20240002/finishing")
             .exchange()
             .expectStatus()
             .is5xxServerError()
