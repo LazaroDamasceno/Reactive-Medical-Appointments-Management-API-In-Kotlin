@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 class AppointmentController {
 
     @Autowired
-    private lateinit var appointmentSchedulingService: AppointmentBookingService
+    private lateinit var appointmentBookingService: AppointmentBookingService
 
     @Autowired
     private lateinit var appointmentFinishingService: AppointmentFinishingService
@@ -26,7 +26,7 @@ class AppointmentController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     suspend fun schedule(@RequestBody responseDto: @Valid AppointmentSchedulingRequestDto): AppointmentResponseDto {
-        return appointmentSchedulingService.schedule(responseDto)
+        return appointmentBookingService.schedule(responseDto)
     }
 
     @PatchMapping("{orderNumber}/finishing")

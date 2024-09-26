@@ -20,18 +20,23 @@ private class AppointmentBookingTest {
     @Test
     @Order(1)
     fun testSuccessfulBooking() {
-        val requestDto = AppointmentSchedulingRequestDto(
-            "123456789",
-            "1234567",
-            LocalDateTime.parse("2024-12-12T09:30:00")
-        )
-        webTestClient
-            .post()
-            .uri("api/v1/appointments")
-            .bodyValue(requestDto)
-            .exchange()
-            .expectStatus()
-            .is2xxSuccessful()
+        var cases = 2
+        while (cases > 0) {
+            val requestDto = AppointmentSchedulingRequestDto(
+                "123456789",
+                "1234567",
+                LocalDateTime.parse("2024-12-12T09:30:00")
+            )
+            webTestClient
+                .post()
+                .uri("api/v1/appointments")
+                .bodyValue(requestDto)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+            cases--
+        }
+
     }
 
     @Test

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-private class AppointmentSchedulingServiceImpl: AppointmentBookingService {
+private class AppointmentBookingServiceImpl: AppointmentBookingService {
 
     @Autowired
     lateinit var appointmentRepository: AppointmentRepository
@@ -45,8 +45,8 @@ private class AppointmentSchedulingServiceImpl: AppointmentBookingService {
         val day = LocalDateTime.now().dayOfMonth
         val month = LocalDateTime.now().monthValue
         val year = LocalDateTime.now().year
-        val ldt = LocalDateTime.of(year, month, day, 0, 0, 0)
-        if (bookingDate.isEqual(ldt) || bookingDate.isBefore(ldt)) {
+        val today = LocalDateTime.of(year, month, day, 0, 0, 0)
+        if (bookingDate.isEqual(today) || bookingDate.isBefore(today)) {
             val message = "The booking date must after today."
             throw InvalidAppointmentException(message)
         }
