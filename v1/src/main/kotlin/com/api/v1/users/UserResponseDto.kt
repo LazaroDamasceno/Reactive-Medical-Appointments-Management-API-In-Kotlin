@@ -10,9 +10,5 @@ data class UserResponseDto(
     var birthDate: LocalDate,
     val email: String,
     val gender: String,
-    val phoneNumber: String,
-    val createdAt: Instant,
-    val creationZoneId: ZoneId,
-    val updatedAt: Instant?,
-    val updatingZonedId: ZoneId?
+    val phoneNumber: String
 )

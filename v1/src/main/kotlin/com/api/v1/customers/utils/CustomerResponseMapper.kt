@@ -10,11 +10,7 @@ class CustomerResponseMapper {
         fun map(customer: Customer): CustomerResponseDto {
             return CustomerResponseDto(
                 UserResponseMapper.map(customer.user),
-                customer.address,
-                customer.createdAt,
-                customer.creationZoneId,
-                customer.updatedAt,
-                customer.updatingZonedId
+                customer.address
             )
         }
     }
