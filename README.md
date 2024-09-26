@@ -27,7 +27,7 @@ You can create on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the
 ### With GIT
 
 1. Open your CMD.
-2. then type ``git clone https://github.com/LazaroDamasceno/Self-Borrowing-Library-Book-Management-API.git``.
+2. then type ``git clone https://github.com/LazaroDamasceno/Reactive-Medical-Appointments-Management-API-In-Kotlin.git``.
 
 ## How to run it
 
