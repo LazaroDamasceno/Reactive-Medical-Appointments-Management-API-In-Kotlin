@@ -20,7 +20,7 @@ private class AppointmentCancellationTest {
     fun testSuccessfulCancellation() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/20240001/cancellation")
+            .uri("api/v1/appointments/2024202425221745/cancellation")
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
@@ -30,7 +30,7 @@ private class AppointmentCancellationTest {
     fun testUnsuccessfulCancellation() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/20240001/cancellation")
+            .uri("api/v1/appointments/2024202425221745/cancellation")
             .exchange()
             .expectStatus()
             .is5xxServerError()

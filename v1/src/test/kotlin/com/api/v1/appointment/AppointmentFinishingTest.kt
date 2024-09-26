@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-private class AppointmentFishingTest {
+private class AppointmentFinishingTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
@@ -20,7 +20,7 @@ private class AppointmentFishingTest {
     fun testSuccessfulFinishing() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/20240001/finishing")
+            .uri("api/v1/appointments/2024202425221744/finishing")
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
@@ -30,7 +30,7 @@ private class AppointmentFishingTest {
     fun testUnsuccessfulFinishing() {
         webTestClient
             .patch()
-            .uri("api/v1/appointments/20240001/finishing")
+            .uri("api/v1/appointments/2024202425221744/finishing")
             .exchange()
             .expectStatus()
             .is5xxServerError()
