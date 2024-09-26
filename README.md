@@ -40,5 +40,4 @@ You can create on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the
 
 ## API running
 
-https://youtu.be/vQCciioaVjk
-
+https://youtu.be/rfyWK9pFW58
