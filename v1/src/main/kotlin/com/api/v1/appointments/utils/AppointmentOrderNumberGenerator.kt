@@ -6,14 +6,13 @@ import java.time.ZonedDateTime
 class AppointmentOrderNumberGenerator {
 
     companion object {
+
+        private val year = ZonedDateTime.now().year
+        private var orderNumber = BigInteger("${year}0000")
+
         fun generate(): BigInteger {
-            val year = ZonedDateTime.now().year
-            val month = ZonedDateTime.now().year
-            val day = ZonedDateTime.now().dayOfMonth
-            val hour = ZonedDateTime.now().hour
-            val minute = ZonedDateTime.now().minute
-            val second = ZonedDateTime.now().second
-            return BigInteger("${year}${month}${day}${hour}${minute}${second}")
+            orderNumber = orderNumber.add(BigInteger.ONE)
+            return orderNumber
         }
     }
 

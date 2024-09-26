@@ -20,7 +20,7 @@ private class AppointmentBookingTest {
     @Test
     @Order(1)
     fun testSuccessfulBooking() {
-        var cases = 2
+        var cases = 30
         while (cases > 0) {
             val requestDto = AppointmentSchedulingRequestDto(
                 "123456789",
